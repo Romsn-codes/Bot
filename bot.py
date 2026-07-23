@@ -6,7 +6,9 @@ import requests
 import re
 import time
 
-TOKEN = "8677564847:AAEZZAswWfGo21OK3Z_j1lzUXF7Uz8Db_DI"
+TOKEN = os.getenv("TOKEN")
+if not TOKEN:
+    raise ValueError("TOKEN не задан в переменных окружения")
 CHANNEL_ID = "@Zhirick_script"
 ADMIN_ID = 6382264272
 
