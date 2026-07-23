@@ -25,9 +25,13 @@ PHOTOS = {
 }
 
 def send_photo(chat_id, photo_key, caption=None, reply_markup=None, parse_mode=None):
-    with open(PHOTOS[photo_key], "rb") as f:
-        bot.send_photo(chat_id, f, caption=caption,
-                       reply_markup=reply_markup, parse_mode=parse_mode)
+    path = PHOTOS.get(photo_key)
+    if path and os.path.exists(path):
+        with open(path, "rb") as f:
+            return bot.send_photo(chat_id, f, caption=caption,
+                                  reply_markup=reply_markup, parse_mode=parse_mode)
+    return bot.send_message(chat_id, caption or "",
+                            reply_markup=reply_markup, parse_mode=parse_mode)
 
 # ── Файлы хранилищ ────────────────────────────────────────────────────────────
 SCRIPTS_FILE      = "scripts.json"
